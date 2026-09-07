@@ -15,53 +15,57 @@ import olympians from "../assets/olympians.json";
     </header>
 
     <section class="rounded-lg border border-slate-200 bg-white p-4 shadow-xl">    
-    <ul>
-      <li><a href="#gentoo">Gentoo</a></li>
-      <li><a href="#adelie">Adelie</a></li>
-      <li><a href="#chinstrap">Chinstrap</a></li>
+    <ul class="flex flex-wrap gap-2">
+      <li class="p-2 m-2 bg-cyan-800 text-white rounded-3xl"><a class="menu-item" href="#gentoo">Gentoo</a></li>
+      <li class="p-2 m-2 bg-cyan-800 text-white rounded-3xl"><a class="menu-item" href="#adelie">Adelie</a></li>
+      <li class="p-2 m-2 bg-cyan-800 text-white rounded-3xl"><a class="menu-item" href="#chinstrap">Chinstrap</a></li>
     </ul>
-  <div id="gentoo">
-    <PlotFigure
-      options={{
-        marks: [
-          Plot.dot(penguins, {
-            filter: (d) => d.species === "Gentoo",
-            x: "culmen_length_mm",
-            y: "culmen_depth_mm",
-            stroke: "species",
-          }),
-        ],
-      }}
-    />
+  <div class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory w-full">
+    <div class="item w-full flex-none snap-start p-2" id="gentoo">
+      <PlotFigure
+        options={{
+          marks: [
+            Plot.dot(penguins, {
+              filter: (d) => d.species === "Gentoo",
+              x: "culmen_length_mm",
+              y: "culmen_depth_mm",
+              stroke: "species",
+            }),
+          ],
+        }}
+      />
+    </div>
+    <div class="item w-full flex-none snap-start p-2" id="adelie">
+      <PlotFigure
+        options={{
+          marks: [
+            Plot.dot(penguins, {
+              filter: (d) => d.species === "Adelie",
+              x: "culmen_length_mm",
+              y: "culmen_depth_mm",
+              stroke: "species",
+            }),
+          ],
+        }}
+      />
+    </div>
+    <div class="item min-w-0 shrink-0 basis-full snap-start" id="chinstrap">
+      <PlotFigure
+        options={{
+          marks: [
+            Plot.dot(penguins, {
+              filter: (d) => d.species === "Chinstrap",
+              x: "culmen_length_mm",
+              y: "culmen_depth_mm",
+              stroke: "species",
+            }),
+          ],
+        }}
+      />
+    </div>
   </div>
-  <div id="adelie">
-    <PlotFigure
-      options={{
-        marks: [
-          Plot.dot(penguins, {
-            filter: (d) => d.species === "Adelie",
-            x: "culmen_length_mm",
-            y: "culmen_depth_mm",
-            stroke: "species",
-          }),
-        ],
-      }}
-    />
-  </div>
-  <div id="chinstrap">
-    <PlotFigure
-      options={{
-        marks: [
-          Plot.dot(penguins, {
-            filter: (d) => d.species === "Chinstrap",
-            x: "culmen_length_mm",
-            y: "culmen_depth_mm",
-            stroke: "species",
-          }),
-        ],
-      }}
-    />
-  </div>
+</section>
+
       <div>
         <PlotFigure
           options={{
@@ -104,5 +108,13 @@ import olympians from "../assets/olympians.json";
           }}
         />
       </div>
-    </section>
 </Layout>
+
+
+<script>
+   const menuItems = document.querySelectorAll(".menu-item");
+   const items = document.querySelectorAll(".item");
+   
+   console.log("menuItems", menuItems);
+   console.log("items", items);
+</script>

@@ -31,47 +31,5 @@ const penguinsGentoo = penguins.filter((d)=> d.species === "Gentoo");
           }}
         />
       </div>
-      <div>
-        <PlotFigure
-          options={{
-			title:"Pizza",
-			caption:"Le graphique représente les commandes par prix",
-            marks: [
-              Plot.dot(pizza, {
-                x: "price",
-                y: "orders",
-              })
-            ]
-          }}
-        />
-      </div>
-      <div>
-        <PlotFigure
-          options={{
-			title:"Météo",
-			caption:"Le graphique montre la température minimum (en ordonnées) et la température maximum (en absisses)",
-            marks: [
-              Plot.dot(weather,{
-                x: "temp_max",
-                y: "temp_min",
-              })
-            ]
-          }}
-        />
-      </div>
-      <div>
-        <PlotFigure
-          options={{
-			title:"Olympians",
-			caption:"Le graphique représente la taille par la hauteur des athlète olympique",
-            marks: [
-              Plot.dot(olympians,{
-                x: "weight",
-                y: "height",
-              })
-            ]
-          }}
-        />
-      </div>
     </section>
 </Layout>
