@@ -15,21 +15,53 @@ import olympians from "../assets/olympians.json";
     </header>
 
     <section class="rounded-lg border border-slate-200 bg-white p-4 shadow-xl">    
-      <div>
-        <PlotFigure
-          options={{
-			title:"Penguins",
-			caption:"Le graphique montre la largeur (en ordonnées) et la longeur (en absisses) de pingouins",
-            marks: [
-              Plot.dot(penguins, {
-                x: "culmen_length_mm",
-                y: "culmen_depth_mm",
-                stroke: "species",
-              })
-            ]
-          }}
-        />
-      </div>
+    <ul>
+      <li><a href="#gentoo">Gentoo</a></li>
+      <li><a href="#adelie">Adelie</a></li>
+      <li><a href="#chinstrap">Chinstrap</a></li>
+    </ul>
+  <div id="gentoo">
+    <PlotFigure
+      options={{
+        marks: [
+          Plot.dot(penguins, {
+            filter: (d) => d.species === "Gentoo",
+            x: "culmen_length_mm",
+            y: "culmen_depth_mm",
+            stroke: "species",
+          }),
+        ],
+      }}
+    />
+  </div>
+  <div id="adelie">
+    <PlotFigure
+      options={{
+        marks: [
+          Plot.dot(penguins, {
+            filter: (d) => d.species === "Adelie",
+            x: "culmen_length_mm",
+            y: "culmen_depth_mm",
+            stroke: "species",
+          }),
+        ],
+      }}
+    />
+  </div>
+  <div id="chinstrap">
+    <PlotFigure
+      options={{
+        marks: [
+          Plot.dot(penguins, {
+            filter: (d) => d.species === "Chinstrap",
+            x: "culmen_length_mm",
+            y: "culmen_depth_mm",
+            stroke: "species",
+          }),
+        ],
+      }}
+    />
+  </div>
       <div>
         <PlotFigure
           options={{
