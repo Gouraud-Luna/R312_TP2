@@ -1,0 +1,96 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PlotFigure from '../components/PlotFigure.astro';
+import * as Plot from "@observablehq/plot";
+import penguins from "../assets/penguins.json";
+import weather from "../assets/weather.json";
+import olympians from "../assets/olympians.json";
+---
+
+<Layout>
+    <header class="mb-8">
+      <p class="p-4 mb-3 text-xl font-bold uppercase text-cyan-700">Data visualisation</p>
+      <a class="p-2 m-2 bg-cyan-800 text-white rounded-3xl" href="/">Home</a>
+  
+    </header>
+
+    <section class="rounded-lg border border-slate-200 bg-white p-4 shadow-xl">    
+    <ul class="flex flex-wrap gap-2">
+      <li class="p-2 m-2 bg-cyan-800 text-white rounded-3xl"><a class="menu-item [.active]:bg-orange-200" href="#gentoo">Gentoo</a></li>
+      <li class="p-2 m-2 bg-cyan-800 text-white rounded-3xl"><a class="menu-item [.active]:bg-orange-200" href="#adelie">Adelie</a></li>
+      <li class="p-2 m-2 bg-cyan-800 text-white rounded-3xl"><a class="menu-item [.active]:bg-orange-200" href="#chinstrap">Chinstrap</a></li>
+    </ul>
+  <div class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory w-full">
+    <div class="item w-full flex-none snap-start p-2" id="gentoo">
+      <PlotFigure
+        options={{
+          marks: [
+            Plot.dot(penguins, {
+              filter: (d) => d.species === "Gentoo",
+              x: "culmen_length_mm",
+              y: "culmen_depth_mm",
+              stroke: "species",
+            }),
+          ],
+        }}
+      />
+    </div>
+    <div class="item w-full flex-none snap-start p-2" id="adelie">
+      <PlotFigure
+        options={{
+          marks: [
+            Plot.dot(penguins, {
+              filter: (d) => d.species === "Adelie",
+              x: "culmen_length_mm",
+              y: "culmen_depth_mm",
+              stroke: "species",
+            }),
+          ],
+        }}
+      />
+    </div>
+    <div class="item min-w-0 shrink-0 basis-full snap-start" id="chinstrap">
+      <PlotFigure
+        options={{
+          marks: [
+            Plot.dot(penguins, {
+              filter: (d) => d.species === "Chinstrap",
+              x: "culmen_length_mm",
+              y: "culmen_depth_mm",
+              stroke: "species",
+            }),
+          ],
+        }}
+      />
+    </div>
+  </div>
+</section>
+
+</Layout>
+
+
+<script>
+   const menuItems = document.querySelectorAll(".menu-item");
+   const items = document.querySelectorAll(".item");
+   
+   console.log("menuItems", menuItems);
+   console.log("items", items);
+   const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const id = entry.target.getAttribute("id");
+          const menuItem = document.querySelector(`.menu-item[href="#${id}"]`);
+          if (entry.isIntersecting) {
+            menuItem?.classList.add("active");
+          } else {
+            menuItem?.classList.remove("active");
+          }
+        });
+      },
+      { threshold: 0.5 },
+    );
+
+    items.forEach((item) => {
+      observer.observe(item);
+    });
+</script>

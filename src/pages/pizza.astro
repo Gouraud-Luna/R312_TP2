@@ -1,0 +1,101 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PlotFigure from '../components/PlotFigure.astro';
+import * as Plot from "@observablehq/plot";
+import pizza from "../assets/pizza.json";
+
+---
+
+<Layout>
+    <header class="mb-8">
+      <p class="p-4 mb-3 text-xl font-bold uppercase text-cyan-700">Data visualisation</p>
+      <a class="p-2 m-2 bg-cyan-800 text-white rounded-3xl" href="/">Home</a>
+  
+    </header>
+
+    <section class="rounded-lg border border-slate-200 bg-white p-4 shadow-xl">
+      <ul class="flex flex-wrap gap-2">
+      <li class="p-2 m-2 bg-cyan-800 text-white rounded-3xl"><a class="menu-item [.active]:bg-orange-200" href="#Classic">Classic</a></li>
+      <li class="p-2 m-2 bg-cyan-800 text-white rounded-3xl"><a class="menu-item [.active]:bg-orange-200" href="#Specialty">Specialty</a></li>
+      <li class="p-2 m-2 bg-cyan-800 text-white rounded-3xl"><a class="menu-item [.active]:bg-orange-200" href="#Vegetarian">Vegetarian</a></li>
+    </ul>
+      <div class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory w-full">
+      <div class="item w-full flex-none snap-start p-2" id="Classic">
+        <PlotFigure
+          options={{
+			title:"Pizza",
+			caption:"Le graphique représente les commandes par prix",
+            marks: [
+              Plot.dot(pizza, {
+                filter: (d) => d.category === "Classic",
+                x: "price",
+                y: "orders",
+                stroke: "category",
+              })
+            ]
+          }}
+        />
+      </div>
+      <div class="item w-full flex-none snap-start p-2" id="Specialty">
+        <PlotFigure
+          options={{
+			title:"Pizza",
+			caption:"Le graphique représente les commandes par prix",
+            marks: [
+              Plot.dot(pizza, {
+                filter: (d) => d.category === "Specialty",
+                x: "price",
+                y: "orders",
+                stroke: "category",
+              })
+            ]
+          }}
+        />
+      </div>
+      <div class="item w-full flex-none snap-start p-2" id="Vegetarian">
+        <PlotFigure
+          options={{
+			title:"Pizza",
+			caption:"Le graphique représente les commandes par prix",
+            marks: [
+              Plot.dot(pizza, {
+                filter: (d) => d.category === "Vegetarian",
+                x: "price",
+                y: "orders",
+                stroke: "category",
+              })
+            ]
+          }}
+        />
+      </div>
+      </div>
+    </section>
+
+</Layout>
+
+
+<script>
+   const menuItems = document.querySelectorAll(".menu-item");
+   const items = document.querySelectorAll(".item");
+   
+   console.log("menuItems", menuItems);
+   console.log("items", items);
+   const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const id = entry.target.getAttribute("id");
+          const menuItem = document.querySelector(`.menu-item[href="#${id}"]`);
+          if (entry.isIntersecting) {
+            menuItem?.classList.add("active");
+          } else {
+            menuItem?.classList.remove("active");
+          }
+        });
+      },
+      { threshold: 0.5 },
+    );
+
+    items.forEach((item) => {
+      observer.observe(item);
+    });
+</script>
